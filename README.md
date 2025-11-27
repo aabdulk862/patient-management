@@ -1,10 +1,10 @@
-Join the Discord Community
-This source code is for the Java/Spring microservices course available on my YouTube channel. You can join the discord for help and discussion here:
+# Patient Service
 
-https://discord.gg/nCrDnfCE
+---
 
-Patient Service
-Environment Variables
+## Environment Variables
+
+```
 JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005;
 SPRING_DATASOURCE_PASSWORD=password;
 SPRING_DATASOURCE_URL=jdbc:postgresql://patient-service-db:5432/db;
@@ -12,10 +12,16 @@ SPRING_DATASOURCE_USERNAME=admin_user;
 SPRING_JPA_HIBERNATE_DDL_AUTO=update;
 SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092;
 SPRING_SQL_INIT_MODE=always
-Billing Service
-gRPC Setup
-Add the following to the <dependencies> section
+```
 
+# Billing Service
+
+---
+
+## gRPC Setup
+
+Add the following to the `<dependencies>` section
+```
 <!--GRPC -->
 <dependency>
     <groupId>io.grpc</groupId>
@@ -49,8 +55,11 @@ Add the following to the <dependencies> section
     <version>4.29.1</version>
 </dependency>
 
-Replace the <build> section with the following
+```
 
+Replace the `<build>` section with the following
+
+```
 
 <build>
     <extensions>
@@ -90,8 +99,14 @@ Replace the <build> section with the following
     </plugins>
 </build>
 
-Patient Service
-Environment Variables (complete list)
+```
+
+# Patient Service
+
+---
+
+## Environment Variables (complete list)
+```bash
 BILLING_SERVICE_ADDRESS=billing-service;
 BILLING_SERVICE_GRPC_PORT=9005;
 JAVA_TOOL_OPTIONS=-agentlib:jdwp\=transport\=dt_socket,server\=y,suspend\=n,address\=*:5005;
@@ -101,9 +116,13 @@ SPRING_DATASOURCE_USERNAME=admin_user;
 SPRING_JPA_HIBERNATE_DDL_AUTO=update;
 SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092;
 SPRING_SQL_INIT_MODE=always
-gRPC Setup
-Add the following to the <dependencies> section
+```
 
+
+## gRPC Setup
+
+Add the following to the `<dependencies>` section
+```
 <!--GRPC -->
 <dependency>
     <groupId>io.grpc</groupId>
@@ -137,8 +156,11 @@ Add the following to the <dependencies> section
     <version>4.29.1</version>
 </dependency>
 
-Replace the <build> section with the following
+```
 
+Replace the `<build>` section with the following
+
+```
 
 <build>
     <extensions>
@@ -178,21 +200,39 @@ Replace the <build> section with the following
     </plugins>
 </build>
 
-Kafka Container
+```
+
+## Kafka Container
+
 Copy/paste this line into the environment variables when running the container in intellij
-
+```
 KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,EXTERNAL://localhost:9094;KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER;KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka:9093;KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT;KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:9094;KAFKA_CFG_NODE_ID=0;KAFKA_CFG_PROCESS_ROLES=controller,broker
-Kafka Producer Setup (Patient Service)
-Add the following to application.properties
+```
 
+## Kafka Producer Setup (Patient Service)
+
+Add the following to `application.properties`
+```
 spring.kafka.consumer.key-deserializer=org.apache.kafka.common.serialization.StringDeserializer
 spring.kafka.consumer.value-deserializer=org.apache.kafka.common.serialization.ByteArrayDeserializer
-Notification Service
-Environment Vars
+```
+
+
+# Notification Service
+
+---
+
+## Environment Vars
+
+```
 SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
-Protobuf/Kafka
+```
+
+## Protobuf/Kafka 
+
 Dependencies (add in addition to whats there)
 
+```
 <dependency>
     <groupId>org.springframework.kafka</groupId>
     <artifactId>spring-kafka</artifactId>
@@ -204,8 +244,11 @@ Dependencies (add in addition to whats there)
     <artifactId>protobuf-java</artifactId>
     <version>4.29.1</version>
 </dependency>
+```
+
 Update the build section in pom.xml with the following
 
+```
     <build>
         <extensions>
             <!-- Ensure OS compatibility for protoc -->
@@ -241,9 +284,14 @@ Update the build section in pom.xml with the following
             </plugin>
         </plugins>
     </build>
-Auth service
+```
+
+
+# Auth service
+
 Dependencies (add in addition to whats there)
 
+```
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
@@ -299,13 +347,22 @@ Dependencies (add in addition to whats there)
           <artifactId>h2</artifactId>
         </dependency>
        
-Environment Variables
+```
+
+## Environment Variables
+
+```
 SPRING_DATASOURCE_PASSWORD=password
 SPRING_DATASOURCE_URL=jdbc:postgresql://auth-service-db:5432/db
 SPRING_DATASOURCE_USERNAME=admin_user
 SPRING_JPA_HIBERNATE_DDL_AUTO=update
 SPRING_SQL_INIT_MODE=always
-Data.sql
+```
+
+
+## Data.sql
+
+```sql
 -- Ensure the 'users' table exists
 CREATE TABLE IF NOT EXISTS "users" (
     id UUID PRIMARY KEY,
@@ -326,6 +383,14 @@ WHERE NOT EXISTS (
 );
 
 
-Auth Service DB
-Environment Variables
+
+```
+
+
+# Auth Service DB
+
+## Environment Variables
+
+```
 POSTGRES_DB=db;POSTGRES_PASSWORD=password;POSTGRES_USER=admin_user
+```
